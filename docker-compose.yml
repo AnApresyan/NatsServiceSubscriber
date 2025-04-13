@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: my_postgres
+    environment:
+      POSTGRES_USER: nuts_user
+      POSTGRES_PASSWORD: nuts_password
+      POSTGRES_DB: nuts_db
+    ports:
+      - "25432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  nats_server:
+    image: nats:2.10
+    container_name: nats_server
+    ports:
+      - "4222:4222"
+
+volumes:
+  postgres_data:
