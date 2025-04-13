@@ -11,7 +11,6 @@ void PostgresStorage::save(const std::string& content, const std::string& timest
         pqxx::connection conn(connStr_);
         pqxx::work txn(conn);
 
-        // Insert the content and timestamp into the messages table.
         txn.exec(
             "INSERT INTO messages (content, timestamp) VALUES (" +
             txn.quote(content) + ", " +
